@@ -97,3 +97,11 @@ class test_basemodel(unittest.TestCase):
         n = new.to_dict()
         new = BaseModel(**n)
         self.assertFalse(new.created_at == new.updated_at)
+    @unittest.skipIf(os.getenv("HBNB_ENV") is not None, "Testing DBStorage")
+    def test_save(self):
+        """Test save method."""
+        old = self.base.updated_at
+        self.base.save()
+        self.assertLess(old, self.base.updated_at)
+        with open("file.json", "r") as f:
+            self.assertIn("BaseModel.{}".format(self.base.id), f.read())
