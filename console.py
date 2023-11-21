@@ -128,7 +128,8 @@ class HBNBCommand(cmd.Cmd):
                 if len(param) == 2:
                     key, val = param
                     if val.startswith('"') and val.endswith('"'):
-                        val = val[1:-1].replace('_', ' ')
+                        val = val[1:-1]
+                        val = val.replace('_', ' ')
                     else:
                         val = eval(val)
                     kwargs[key] = val

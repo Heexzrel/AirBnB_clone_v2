@@ -21,12 +21,12 @@ class BaseModel:
                 self.id = str(uuid.uuid4())
             if 'created_at' not in attr_dict:
                 self.created_at = self.updated_at = datetime.now()
-            for key, values in attr_dict.items():
+            for key, value in attr_dict.items():
                 if key in ['created_at', 'updated_at']:
-                    dt_obj = datetime.strptime(val, '%Y-%m-%dT%H:%M:%S.%f')
+                    dt_obj = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
                     setattr(self, key, dt_obj)
                 else:
-                    setattr(self, key, values)
+                    setattr(self, key, value)
 
     def __str__(self):
         """Returns a string representation of the instance"""
