@@ -5,15 +5,13 @@ from sqlalchemy import Column, Table, String, ForeignKey, Integer, Float
 from sqlalchemy.orm import relationship
 from os import getenv
 import models
-
-
-assoc_table = Table("place_amenity", Base.metadata,
+"""assoc_table = Table("place_amenity", Base.metadata,
                     Column("place_id", String(60),
                            ForeignKey("places.id"), primary_key=True,
                            nullable=False),
                     Column("amenity_id", String(60),
                            ForeignKey("amenities.id"),
-                           primary_key=True, nullable=False))
+                           primary_key=True, nullable=False))"""
 
 
 class Place(BaseModel, Base):
