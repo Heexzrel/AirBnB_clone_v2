@@ -28,8 +28,8 @@ class Place(BaseModel, Base):
     latitude = Column(Float)
     longitude = Column(Float)
     reviews = relationship("Review", backref="place", cascade="delete")
-    amenities = relationship("Amenity", secondary="place_amenity",
-                             viewonly=False)
+    """ amenities = relationship("Amenity", secondary="place_amenity",
+                              viewonly=False)"""
     """if getenv("HBNB_TYPE_STORAGE") == 'db':
         place_amenities = Table('place_amenity', Base.metadata,
                                 Column('place_id', String(60),
