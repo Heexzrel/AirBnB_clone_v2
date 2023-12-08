@@ -9,7 +9,7 @@ import os
 
 env.hosts = ['18.206.208.154', '100.26.236.42']
 env.user = 'ubuntu'
-env.key_filename = '~/.ssh/school'
+env.key_filename = '~/.ssh/id_rsa'
 
 
 def do_pack():
@@ -31,32 +31,22 @@ def do_pack():
 
 def do_deploy(archive_path):
     """
-    distributes archive to web server
+    distributing archive to web server
     """
     if not os.path.exists(archive_path):
         return False
-
     try:
         fname = archive_path.split("/")[-1]
         name = fname.split(".")[0]
         path = f"/data/web_static/releases/{name}/"
-
         put(archive_path, '/tmp/')
-
         run(f"mkdir -p {path}")
-
         run(f"tar -xzf /tmp/{fname} -C {path}")
-
         run(f"rm /tmp/{fname}")
-
         run(f"mv {path}web_static/* {path}")
-
         run(f"rm -rf {path}web_static")
-
         run('rm -rf /data/web_static/current')
-
         run(f"ln -s {path} /data/web_static/current")
-
         return True
     except Exception:
         return False
