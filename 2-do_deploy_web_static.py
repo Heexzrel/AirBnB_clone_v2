@@ -2,8 +2,10 @@
 from fabric.api import run, put, env, sudo, local
 from os.path import exists
 from datetime import datetime
-
 env.hosts = ['18.206.208.154', '100.26.236.42']
+env.user = 'ubuntu'
+env.key_filename = '~/.ssh/id_rsa'
+
 
 def do_deploy(archive_path):
     """function that distributes an archive to a web server.
