@@ -1,20 +1,19 @@
-# Configures a web server for deployment of web_static.
+# Configuring a web server for deployment of web_static (hbnb frontend).
 
-# Nginx configuration file
 $nginx_conf = "server {
     listen 80 default_server;
     listen [::]:80 default_server;
     add_header X-Served-By ${hostname};
     root   /var/www/html;
-    index  index.html index.htm;
+    index  index.html;
 
     location /hbnb_static {
         alias /data/web_static/current;
-        index index.html index.htm;
+        index index.html;
     }
 
     location /redirect_me {
-        return 301 http://cuberule.com/;
+        return 301 https://www.youtube.com/watch?v=v5nfmtFzvvk;
     }
 
     error_page 404 /404.html;
@@ -51,7 +50,7 @@ file { '/data/web_static/shared':
 
 file { '/data/web_static/releases/test/index.html':
   ensure  => 'present',
-  content => "Holberton School Puppet\n"
+  content => "Testing my server\n"
 } ->
 
 file { '/data/web_static/current':
@@ -73,7 +72,7 @@ file { '/var/www/html':
 
 file { '/var/www/html/index.html':
   ensure  => 'present',
-  content => "Holberton School Nginx\n"
+  content => "Hello World\n"
 } ->
 
 file { '/var/www/html/404.html':
