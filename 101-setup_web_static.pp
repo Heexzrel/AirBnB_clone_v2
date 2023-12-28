@@ -5,11 +5,11 @@ $nginx_conf = "server {
     listen [::]:80 default_server;
     add_header X-Served-By ${hostname};
     root   /var/www/html;
-    index  index.html;
+    index  index.html index.htm;
 
     location /hbnb_static {
         alias /data/web_static/current;
-        index index.html;
+        index index.html index.htm;
     }
 
     location /redirect_me {
@@ -72,7 +72,7 @@ file { '/var/www/html':
 
 file { '/var/www/html/index.html':
   ensure  => 'present',
-  content => "Hello World\n"
+  content => "Hello World!\n"
 } ->
 
 file { '/var/www/html/404.html':
