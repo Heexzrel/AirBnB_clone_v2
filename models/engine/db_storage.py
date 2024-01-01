@@ -13,7 +13,6 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm import sessionmaker
 
-
 class DBStorage:
 
     """"
@@ -35,7 +34,7 @@ class DBStorage:
         if getenv("HBNB_ENV") == "test":
             Base.metadata.drop_all(self.__engine)
 
-    def all(self,   cls=None):
+    """def all(self,   cls=None):
         if cls is None:
             objs = self.__session.query(State).all()
             objs.extend(self.__session.query(City).all())
@@ -50,7 +49,21 @@ class DBStorage:
                 objs = self.__session.query(cls)
                 myob = {"{}.{}".format(type(o).__name__,
                                        o.id): o for o in objs}
-                return myobj
+                return myobj"""
+    def all(self, cls=None):
+        objs = []
+        if cls is None:
+            objs.extend(self.__session.query(State).all())
+            objs.extend(self.__session.query(City).all())
+            objs.extend(self.__session.query(Place).all())
+            objs.extend(self.__session.query(Amenity).all())
+            objs.extend(self.__session.query(Review).all())
+            objs.extend(self.__session.query(User).all())
+        else:
+            if isinstance(cls, str):
+                cls = eval(cls)
+            objs.extend(self.__session.query(cls).all())
+        return {obj.__class__.__name__ + "." + obj.id: obj for obj in objs}
 
     def new(self, obj):
         """adds obj to current session"""
@@ -69,7 +82,7 @@ class DBStorage:
         """creates all tables in db and creates current session"""
         Base.metadata.create_all(self.__engine)
         my_session = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        Session = scope_session(my_session)
+        Session = scoped_session(my_session)
         self.__session = Session()
 
     def close(self):

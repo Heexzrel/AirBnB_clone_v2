@@ -58,3 +58,7 @@ class FileStorage:
             if self.__objects[key]:
                 del self.__objects[key]
                 self.save()
+
+    def close(self):
+        """deserialising json file objects"""
+        self.reload()
