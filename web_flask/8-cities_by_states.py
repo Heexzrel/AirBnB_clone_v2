@@ -9,6 +9,7 @@ from models import storage
 app = Flask(__name__)
 
 
+@app.route('/cities_by_states', strict_slashes=False)
 def cities_state():
     """lists states with their cities"""
     my_states = storage.all("State")
