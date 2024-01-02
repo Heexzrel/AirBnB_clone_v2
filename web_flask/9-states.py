@@ -9,12 +9,14 @@ from models import storage
 app = Flask(__name__)
 
 
+@app.route('/states', strict_slashes=False)
 def state_list():
     """lists states with their cities"""
     my_states = storage.all("State")
     return render_template("9-states.html", states=my_states)
 
 
+@app.route('/states/<id>', strict_slashes=False)
 def state_id(id):
     """displays html page based on id"""
     for state in storage.all("State").values():
